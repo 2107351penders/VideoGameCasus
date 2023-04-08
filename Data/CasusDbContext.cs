@@ -24,6 +24,7 @@ namespace VideoGameCasus.Data
 		private List<User> SeedUsers()
 		{
 			List<User> users = new List<User>();
+			users.Add(new User { Id = -1, Name = "Tim", Password = "password" });
 			return users;
 		}
 

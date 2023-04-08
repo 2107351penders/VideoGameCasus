@@ -87,6 +87,14 @@ namespace VideoGameCasus.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = -1,
+                            Name = "Tim",
+                            Password = "password"
+                        });
                 });
 
             modelBuilder.Entity("VideoGameCasus.Models.Game", b =>

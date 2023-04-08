@@ -16,24 +16,29 @@
     <div class="wrapper">
         <div class="container fluid">
             <div class="col-align-self-center">
-                <div class="input-box">
-                    <h3>Please log in</h3>
-                    <div class="input-field">
-                        <label for="username">Username</label>
-                        <input type="text" class="input" id="username" required autocomplete="off">
+                <form method="post">
+                    <div class="input-box">
+                        <h3>Please log in</h3>
+                        @if (Model.unknownLogin) {
+                            <p style=color:red>Unknown username and/or password</p>
+                        }
+                        <div class="input-field">
+                            <label for="username">Username</label>
+                            <input asp-for="userName" type="text" class="input" id="username" required autocomplete="off">
+                        </div>
+                            <div class="input-field">
+                            <label for="password">Password</label>
+                            <input asp-for="password" type="password" class="input" id="password" required>
+                        </div>
+                        <div class="input-field">
+                            <br>
+                            <input type="submit" class="submit" id="submit" required>
+                        </div>
+                        <span>
+                            No account yet? <a href="">Sign up</a> now!
+                        </span>
                     </div>
-                    <div class="input-field">
-                        <label for="password">Password</label>
-                        <input type="text" class="input" id="password" required>
-                    </div>
-                    <div class="input-field">
-                        <br>
-                        <input type="submit" class="submit" id="submit" required>
-                    </div>
-                    <span>
-                        No account yet? <a href="a">Sign up</a> now!
-                    </span>
-                </div>
+                </form>
             </div>
         </div>
     </div>

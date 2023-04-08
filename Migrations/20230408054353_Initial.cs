@@ -68,6 +68,11 @@ namespace VideoGameCasus.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "Name", "Password" },
+                values: new object[] { -1, "Tim", "password" });
+
             migrationBuilder.CreateIndex(
                 name: "IX_gameLists_UserId",
                 table: "gameLists",

@@ -10,7 +10,7 @@ using VideoGameCasus.Data;
 namespace VideoGameCasus.Migrations
 {
     [DbContext(typeof(CasusDbContext))]
-    [Migration("20230330201926_Initial")]
+    [Migration("20230408054353_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -90,6 +90,14 @@ namespace VideoGameCasus.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = -1,
+                            Name = "Tim",
+                            Password = "password"
+                        });
                 });
 
             modelBuilder.Entity("VideoGameCasus.Models.Game", b =>
