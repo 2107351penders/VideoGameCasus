@@ -1,9 +1,41 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1>Logged in as @(Model.userName)!</h1>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Games</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/VideoGameCasus.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <form method="post">
+                    <input type="text">
+                    <input type="button" value="Search" />
+                </form>
+                <a>Welcome, @(Model.userName)</a>
+                <a class="btn btn-danger" asp-page="Index" asp-page-handler="LogOut">Log out</a>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            <div class="text-center">
+                <h1>Logged in as @(Model.userName)!</h1>
+            </div>
+        </main>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>

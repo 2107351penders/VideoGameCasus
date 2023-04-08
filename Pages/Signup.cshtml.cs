@@ -22,14 +22,18 @@ namespace VideoGameCasus.Pages
         }
 
         // Return true if password meets requirements, false otherwise
-        private bool passwordComplexity()
+        private bool passwordComplexity(String password)
         {
+            if (password.Length < 12)
+            {
+                return false;
+            }
             return true;
         }
 
         public ActionResult OnPost()
         {
-            if (passwordComplexity())
+            if (passwordComplexity(password))
             {
                 dbContext.Users.Add(new Models.User { Name = userName, Password = password });
                 dbContext.SaveChanges();
