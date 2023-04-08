@@ -18,17 +18,26 @@ namespace VideoGameCasus.Pages
 
         public bool unknownLogin { get; set; } = false;
         private CasusDbContext _context;
-        
+        public bool newUser { get; set; } = false;
+
         public LoginModel(CasusDbContext injectedContext)
         {
             _context = injectedContext;
         }
-        
-        public void OnGet()
+
+        public IActionResult OnGet(bool newUser)
         {
+            this.newUser = newUser;
+
+            if (Request.Cookies["CasusAuth"] != null)
+            {
+                // User is al ingelogd!
+                return RedirectToPage("/Index");
+            }
+            return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public ActionResult OnPost()
         {
             List<User> users = _context.Users.ToList();
             foreach (User user in users)
@@ -40,7 +49,6 @@ namespace VideoGameCasus.Pages
                         unknownLogin = false;
                         Response.Cookies.Append("CasusAuth", userName);
                         return RedirectToPage("/Index");
-                        // login
                     }
                 }
             }

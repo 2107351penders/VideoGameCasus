@@ -24,7 +24,7 @@ namespace VideoGameCasus.Pages
             }
             else
             {
-				return RedirectToPage("/Login");
+				return RedirectToPage("/Login", new { newUser = false });
             }
         }
 	}
