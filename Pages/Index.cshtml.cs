@@ -2,6 +2,9 @@
 using System.Web;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using VideoGameCasus.Data;
+using VideoGameCasus.Models;
 
 namespace VideoGameCasus.Pages
 {
@@ -9,10 +12,13 @@ namespace VideoGameCasus.Pages
 	{
 		private readonly ILogger<IndexModel> _logger;
         public string userName { get; set; }
+		private CasusDbContext _context;
+		private List<Game> games = new List<Game>();
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public IndexModel(ILogger<IndexModel> logger, CasusDbContext dbContext)
 		{
 			_logger = logger;
+			_context = dbContext;
 		}
 
 		public IActionResult OnGet()
@@ -20,6 +26,9 @@ namespace VideoGameCasus.Pages
             if (Request.Cookies["CasusAuth"] != null)
             {
 				userName = Request.Cookies["CasusAuth"];
+
+                games = _context.Games.ToList(); // Nog filteren op user
+
                 return Page();
             }
             else

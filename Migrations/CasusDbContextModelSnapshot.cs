@@ -52,6 +52,19 @@ namespace VideoGameCasus.Migrations
                     b.HasIndex("GameListId");
 
                     b.ToTable("Games");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = -1,
+                            Cover = "85459",
+                            Finished = false,
+                            GameListId = -1,
+                            Name = "Counter-Strike: Source",
+                            Platforms = "3",
+                            Rating = 84.34697f,
+                            Summary = "Counter-Strike: Source blends Counter-Strike's award-winning teamplay action with the advanced technology of Source technology. Featuring state of the art graphics, all new sounds, and introducing physics, Counter-Strike: Source is a must-have for every action gamer."
+                        });
                 });
 
             modelBuilder.Entity("VideoGameCasus.Models.GameList", b =>
@@ -68,6 +81,13 @@ namespace VideoGameCasus.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("gameLists");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = -1,
+                            UserId = -1
+                        });
                 });
 
             modelBuilder.Entity("VideoGameCasus.Models.User", b =>

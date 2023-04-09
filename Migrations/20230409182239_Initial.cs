@@ -73,6 +73,16 @@ namespace VideoGameCasus.Migrations
                 columns: new[] { "Id", "Name", "Password" },
                 values: new object[] { -1, "Tim", "password" });
 
+            migrationBuilder.InsertData(
+                table: "gameLists",
+                columns: new[] { "Id", "UserId" },
+                values: new object[] { -1, -1 });
+
+            migrationBuilder.InsertData(
+                table: "Games",
+                columns: new[] { "Id", "Cover", "Finished", "GameListId", "Name", "Platforms", "Rating", "Summary" },
+                values: new object[] { -1, "85459", false, -1, "Counter-Strike: Source", "3", 84.34697f, "Counter-Strike: Source blends Counter-Strike's award-winning teamplay action with the advanced technology of Source technology. Featuring state of the art graphics, all new sounds, and introducing physics, Counter-Strike: Source is a must-have for every action gamer." });
+
             migrationBuilder.CreateIndex(
                 name: "IX_gameLists_UserId",
                 table: "gameLists",
