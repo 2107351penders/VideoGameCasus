@@ -54,8 +54,7 @@ namespace VideoGameCasus.Migrations
                     Publisher = table.Column<string>(type: "TEXT", nullable: false),
                     ReleaseDate = table.Column<string>(type: "TEXT", nullable: false),
                     Genre = table.Column<string>(type: "TEXT", nullable: false),
-                    Rating = table.Column<float>(type: "REAL", nullable: false),
-                    Platforms = table.Column<string>(type: "TEXT", nullable: false),
+                    Platform = table.Column<string>(type: "TEXT", nullable: false),
                     Cover = table.Column<string>(type: "TEXT", nullable: false),
                     Finished = table.Column<bool>(type: "INTEGER", nullable: false),
                     GameListId = table.Column<int>(type: "INTEGER", nullable: false)
@@ -83,8 +82,8 @@ namespace VideoGameCasus.Migrations
 
             migrationBuilder.InsertData(
                 table: "Games",
-                columns: new[] { "Id", "Cover", "Finished", "GameListId", "Genre", "Name", "Platforms", "Publisher", "Rating", "ReleaseDate", "Summary" },
-                values: new object[] { -1, "https://images.igdb.com/igdb/image/upload/t_cover_big/co1txv.png", false, -1, "Shooter", "Counter-Strike: Source", "3", "Valve", 84.34697f, "Nov 01, 2004", "Counter-Strike: Source blends Counter-Strike's award-winning teamplay action with the advanced technology of Source technology. Featuring state of the art graphics, all new sounds, and introducing physics, Counter-Strike: Source is a must-have for every action gamer." });
+                columns: new[] { "Id", "Cover", "Finished", "GameListId", "Genre", "Name", "Platform", "Publisher", "ReleaseDate", "Summary" },
+                values: new object[] { -1, "https://images.igdb.com/igdb/image/upload/t_cover_big/co1txv.png", false, -1, "Fake", "Seed Game", "None", "Nobody", "Never", "Example game from the database seed" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_gameLists_UserId",

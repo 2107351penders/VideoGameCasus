@@ -10,7 +10,7 @@ using VideoGameCasus.Data;
 namespace VideoGameCasus.Migrations
 {
     [DbContext(typeof(CasusDbContext))]
-    [Migration("20230409183411_Initial")]
+    [Migration("20230409210450_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -43,16 +43,13 @@ namespace VideoGameCasus.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Platforms")
+                    b.Property<string>("Platform")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Publisher")
                         .IsRequired()
                         .HasColumnType("TEXT");
-
-                    b.Property<float>("Rating")
-                        .HasColumnType("REAL");
 
                     b.Property<string>("ReleaseDate")
                         .IsRequired()
@@ -75,13 +72,12 @@ namespace VideoGameCasus.Migrations
                             Cover = "https://images.igdb.com/igdb/image/upload/t_cover_big/co1txv.png",
                             Finished = false,
                             GameListId = -1,
-                            Genre = "Shooter",
-                            Name = "Counter-Strike: Source",
-                            Platforms = "3",
-                            Publisher = "Valve",
-                            Rating = 84.34697f,
-                            ReleaseDate = "Nov 01, 2004",
-                            Summary = "Counter-Strike: Source blends Counter-Strike's award-winning teamplay action with the advanced technology of Source technology. Featuring state of the art graphics, all new sounds, and introducing physics, Counter-Strike: Source is a must-have for every action gamer."
+                            Genre = "Fake",
+                            Name = "Seed Game",
+                            Platform = "None",
+                            Publisher = "Nobody",
+                            ReleaseDate = "Never",
+                            Summary = "Example game from the database seed"
                         });
                 });
 

@@ -11,7 +11,6 @@
     <title>My Games</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/VideoGameCasus.styles.css" asp-append-version="true" />
 </head>
 <body>
     <header>
@@ -31,23 +30,24 @@
             <div class="text-left">
                 <h1>My Games</h1>
             </div>
+            <a asp-page="Index" asp-page-handler="AddGame" class="btn btn-outline-dark">Add Game</a>
             <table>
             @foreach (VideoGameCasus.Models.Game game in Model.games)
             {
                 <tr>
                     <td>
-                        <div class="GameBox">
-                            <div class="artwork" style="width: 25%; float:left">
-                                <image src="@game.Cover" />
-                            </div>
-                            <div class="body" style="width: 75%; float:right">
-                                <h1>@game.Name</h1>
-                                <h2>@game.ReleaseDate</h2>
-                                <h2>@game.Publisher</h2>
-                                <p><b>Genre: </b>@game.Genre</p>
-                                <p><b>Platform: </b>@game.Platforms</p>
-                                <p>@game.Summary</p>
-                            </div>
+                        <div class="artwork" style="width: 25%; float:left">
+                            <image src="@game.Cover" />
+                        </div>
+                    </td>
+                    <td>
+                        <div class="body" style="width: 75%; float:right">
+                            <h1>@game.Name</h1>
+                            <h2>@game.ReleaseDate</h2>
+                            <h2>@game.Publisher</h2>
+                            <p><b>Genre: </b>@game.Genre</p>
+                            <p><b>Platform: </b>@game.Platform</p>
+                            <p>@game.Summary</p>
                         </div>
                     </td>
                 </tr>

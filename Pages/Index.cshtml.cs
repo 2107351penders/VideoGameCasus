@@ -58,5 +58,20 @@ namespace VideoGameCasus.Pages
             }
 			return RedirectToPage("/Index");
         }
+
+		public IActionResult OnGetAddGame()
+		{
+			userName = Request.Cookies["CasusAuth"];
+
+			User = (from User in _context.Users
+                    where User.Name.Equals(userName)
+                    select User).First();
+
+            gameList = (from gameList in _context.gameLists
+                        where gameList.User == User
+                        select gameList).First();
+            
+			return RedirectToPage("/AddGame", new { gameListId = gameList.Id, ApiSyncDone = false });
+		}
 	}
 }
