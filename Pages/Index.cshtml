@@ -31,7 +31,28 @@
             <div class="text-left">
                 <h1>My Games</h1>
             </div>
-
+            <table>
+            @foreach (VideoGameCasus.Models.Game game in Model.games)
+            {
+                <tr>
+                    <td>
+                        <div class="GameBox">
+                            <div class="artwork" style="width: 25%; float:left">
+                                <image src="@game.Cover" />
+                            </div>
+                            <div class="body" style="width: 75%; float:right">
+                                <h1>@game.Name</h1>
+                                <h2>@game.ReleaseDate</h2>
+                                <h2>@game.Publisher</h2>
+                                <p><b>Genre: </b>@game.Genre</p>
+                                <p><b>Platform: </b>@game.Platforms</p>
+                                <p>@game.Summary</p>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+            </table>
         </main>
     </div>
 

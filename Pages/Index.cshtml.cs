@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Web;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -11,9 +12,11 @@ namespace VideoGameCasus.Pages
 	public class IndexModel : PageModel
 	{
 		private readonly ILogger<IndexModel> _logger;
+        private CasusDbContext _context;
         public string userName { get; set; }
-		private CasusDbContext _context;
-		private List<Game> games = new List<Game>();
+		public User User { get; set; }
+		public GameList gameList { get; set; }
+		public List<Game> games = new List<Game>();
 
         public IndexModel(ILogger<IndexModel> logger, CasusDbContext dbContext)
 		{
@@ -27,7 +30,17 @@ namespace VideoGameCasus.Pages
             {
 				userName = Request.Cookies["CasusAuth"];
 
-                games = _context.Games.ToList(); // Nog filteren op user
+				User = (from User in _context.Users
+					   where User.Name.Equals(userName)
+					   select User).First();
+				
+				gameList = (from gameList in _context.gameLists
+						   where gameList.User == User
+						   select gameList).First();
+
+				games = (from Game in _context.Games
+						where Game.GameList == gameList
+						select Game).ToList();
 
                 return Page();
             }

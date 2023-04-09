@@ -15,7 +15,6 @@ namespace VideoGameCasus.Data
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			// Seed database met standaard data gedefinieerd in SeedVideos() en SeedOnderwerpen()
 			modelBuilder.Entity<User>().HasData(SeedUsers());
 			modelBuilder.Entity<Game>().HasData(SeedGames());
 			modelBuilder.Entity<GameList>().HasData(SeedGameLists());
@@ -36,9 +35,11 @@ namespace VideoGameCasus.Data
 				Id = -1,
 				Name = "Counter-Strike: Source",
 				Summary = "Counter-Strike: Source blends Counter-Strike's award-winning teamplay action with the advanced technology of Source technology. Featuring state of the art graphics, all new sounds, and introducing physics, Counter-Strike: Source is a must-have for every action gamer.",
-				Rating = 84.34696675674215F,
+				Publisher = "Valve",
+				ReleaseDate = "Nov 01, 2004",
+				Genre = "Shooter",
 				Platforms = "3", // API geeft lijst met platform ids. Tweede call nodig om deze om te zetten naar platform naam
-				Cover = "85459", // Zelfde als hierboven. Extra call nodig
+				Cover = "https://images.igdb.com/igdb/image/upload/t_cover_big/co1txv.png", // Zelfde als hierboven. Extra call nodig
 				Finished = false,
 				GameListId = -1
 			});

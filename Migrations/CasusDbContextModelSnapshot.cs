@@ -32,6 +32,10 @@ namespace VideoGameCasus.Migrations
                     b.Property<int>("GameListId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Genre")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -40,8 +44,16 @@ namespace VideoGameCasus.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Publisher")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<float>("Rating")
                         .HasColumnType("REAL");
+
+                    b.Property<string>("ReleaseDate")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Summary")
                         .IsRequired()
@@ -57,12 +69,15 @@ namespace VideoGameCasus.Migrations
                         new
                         {
                             Id = -1,
-                            Cover = "85459",
+                            Cover = "https://images.igdb.com/igdb/image/upload/t_cover_big/co1txv.png",
                             Finished = false,
                             GameListId = -1,
+                            Genre = "Shooter",
                             Name = "Counter-Strike: Source",
                             Platforms = "3",
+                            Publisher = "Valve",
                             Rating = 84.34697f,
+                            ReleaseDate = "Nov 01, 2004",
                             Summary = "Counter-Strike: Source blends Counter-Strike's award-winning teamplay action with the advanced technology of Source technology. Featuring state of the art graphics, all new sounds, and introducing physics, Counter-Strike: Source is a must-have for every action gamer."
                         });
                 });
