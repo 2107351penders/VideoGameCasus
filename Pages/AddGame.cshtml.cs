@@ -1,6 +1,8 @@
+using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
+using VideoGameCasus.Data;
 using VideoGameCasus.Models;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
@@ -73,6 +75,49 @@ namespace VideoGameCasus.Pages
         public List<InvolvedCompany> involved_companies { get; set; }
     }
 
+    public class ApiGenre
+    {
+        public int id { get; set; }
+        public int created_at { get; set; }
+        public string name { get; set; }
+        public string slug { get; set; }
+        public int updated_at { get; set; }
+        public string url { get; set; }
+        public string checksum { get; set; }
+    }
+
+    public class ApiPlatform
+    {
+        public int id { get; set; }
+        public string abbreviation { get; set; }
+        public string alternative_name { get; set; }
+        public int category { get; set; }
+        public int created_at { get; set; }
+        public int generation { get; set; }
+        public string name { get; set; }
+        public int platform_logo { get; set; }
+        public int platform_family { get; set; }
+        public string slug { get; set; }
+        public int updated_at { get; set; }
+        public string url { get; set; }
+        public List<int> versions { get; set; }
+        public List<int> websites { get; set; }
+        public string checksum { get; set; }
+    }
+
+    public class ApiCover
+    {
+        public int id { get; set; }
+        public bool alpha_channel { get; set; }
+        public bool animated { get; set; }
+        public int game { get; set; }
+        public int height { get; set; }
+        public string image_id { get; set; }
+        public string url { get; set; }
+        public int width { get; set; }
+        public string checksum { get; set; }
+    }
+
     class IGDBApi
     {
         private const string BaseUrl = "https://api.igdb.com/v4/";
@@ -115,24 +160,57 @@ namespace VideoGameCasus.Pages
 
         public string GetReleaseDate(int releaseDate)
         {
-            DateTimeOffset dateTimeOffset = DateTimeOffset.FromUnixTimeMilliseconds(releaseDate);
+            DateTimeOffset dateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(releaseDate);
             DateTime dateTime = dateTimeOffset.UtcDateTime;
             return dateTime.ToLongDateString();
         }
 
-        public string GetGenre(int genreId)
+        public async Task<string> GetGenre(int genreId)
         {
-            return "TODO";
+            var client = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Post, BaseUrl + "genres");
+            request.Headers.Add("Client-ID", "9q14bvj25yomgp5jc7u2ouor0yc37m");
+            request.Headers.Add("Authorization", $"Bearer {_apiKey}");
+            request.Content = new StringContent($"fields *; where id={genreId};", System.Text.Encoding.UTF8, "application/json");
+
+            var response = await client.SendAsync(request);
+            var content = await response.Content.ReadAsStringAsync();
+
+            var results = JsonConvert.DeserializeObject<List<ApiGenre>>(content);
+
+            return results[0].name;
         }
 
-        public string GetPlatform(int platformId)
+        public async Task<string> GetPlatform(int platformId)
         {
-            return "TODO";
+            var client = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Post, BaseUrl + "platforms");
+            request.Headers.Add("Client-ID", "9q14bvj25yomgp5jc7u2ouor0yc37m");
+            request.Headers.Add("Authorization", $"Bearer {_apiKey}");
+            request.Content = new StringContent($"fields *; where id={platformId};", System.Text.Encoding.UTF8, "application/json");
+
+            var response = await client.SendAsync(request);
+            var content = await response.Content.ReadAsStringAsync();
+
+            var results = JsonConvert.DeserializeObject<List<ApiPlatform>>(content);
+
+            return results[0].name;
         }
 
-        public string GetCover(int coverId)
+        public async Task<string> GetCover(int coverId)
         {
-            return "TODO";
+            var client = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Post, BaseUrl + "covers");
+            request.Headers.Add("Client-ID", "9q14bvj25yomgp5jc7u2ouor0yc37m");
+            request.Headers.Add("Authorization", $"Bearer {_apiKey}");
+            request.Content = new StringContent($"fields *; where id={coverId};", System.Text.Encoding.UTF8, "application/json");
+
+            var response = await client.SendAsync(request);
+            var content = await response.Content.ReadAsStringAsync();
+
+            var results = JsonConvert.DeserializeObject<List<ApiCover>>(content);
+
+            return "https://images.igdb.com/igdb/image/upload/t_cover_big/" + results[0].image_id + ".png";
         }
     }
 
@@ -140,27 +218,24 @@ namespace VideoGameCasus.Pages
     {
         [BindProperty]
         public string IgdbSearchString { get; set; }
+        [BindProperty]
         public Game newGame { get; set; }
         public int GameListId { get; set; }
         public bool ApiSyncDone;
+        private CasusDbContext _context { get; set; }
 
-        public void OnGet(int gameListId, bool apiSyncDone)
+        public AddGameModel(CasusDbContext context) 
         {
-            GameListId = gameListId;
-            ApiSyncDone = apiSyncDone;
+            _context = context;
         }
 
-        public async Task<IActionResult> OnPost(int gameListId, bool apiSyncDone)
+        public void OnGet(int gameListId)
         {
-			GameListId = gameListId;
-			ApiSyncDone = apiSyncDone;
+            GameListId = gameListId;
+        }
 
-			if (ApiSyncDone) // User heeft API geraadpleegt. Voeg game toe o.b.v. ingevulde gegevens
-            {
-                return RedirectToPage("/Index");
-            }
-            else
-            {
+        public async Task<IActionResult> OnPost(int gameListId)
+        {
                 string apiKey = "myjqcshxoe9sgezrly5auzyujzh0kl";
                 var api = new IGDBApi(apiKey);
                 List<ApiGame> games = await api.SearchGames(IgdbSearchString);
@@ -177,16 +252,16 @@ namespace VideoGameCasus.Pages
                     Summary = games[0].summary,
                     Publisher = await api.GetPublisher(games[0].id),
                     ReleaseDate = api.GetReleaseDate(games[0].first_release_date),
-                    Genre = api.GetGenre(games[0].genres[0]),
-                    Platform = api.GetPlatform(games[0].platforms[0]),
-                    Cover = api.GetCover(games[0].cover),
+                    Genre = await api.GetGenre(games[0].genres[0]),
+                    Platform = await api.GetPlatform(games[0].platforms[0]),
+                    Cover = await api.GetCover(games[0].cover),
                     Finished = false,
                     GameListId = gameListId
                 };
 
-                ApiSyncDone = true;
-                return Page();
+                _context.Games.Add(newGame);
+                _context.SaveChanges();
+                return RedirectToPage("/Index");
             }
         }
     }
-}

@@ -31,19 +31,6 @@ namespace VideoGameCasus.Data
 		private List<Game> SeedGames()
 		{
 			List<Game> games = new List<Game>();
-			games.Add(new Game
-			{
-				Id = -1,
-				Name = "Seed Game",
-				Summary = "Example game from the database seed",
-				Publisher = "Nobody",
-				ReleaseDate = "Never",
-				Genre = "Fake",
-				Platform = "None",
-				Cover = "https://images.igdb.com/igdb/image/upload/t_cover_big/co1txv.png",
-				Finished = false,
-				GameListId = -1
-			});
 			return games;
 		}
 

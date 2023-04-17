@@ -2,40 +2,8 @@
 @model VideoGameCasus.Pages.AddGameModel
 @{
 }
-
-@if (!Model.ApiSyncDone)
-{
     <form method="post">
         <label for="igdb-query">IGDB Search</label>
         <input asp-for="IgdbSearchString" type="Text" id="igdb-query" required>
         <input type="submit" id="submit-api" value="Get game from IGDB">
     </form>
-}
-
-@if (Model.ApiSyncDone)
-{
-    <p>I found this game for you. Press the button below if this is correct and you want to add it to your list</p>
-    <form method="post">
-        <input type="submit" id="submit-game" value="Submit">
-    </form>
-
-    <table>
-        <tr>
-            <td>
-                <div class="GameBox">
-                    <div class="artwork" style="width: 25%; float:left">
-                        <image src="@Model.newGame.Cover" />
-                    </div>
-                    <div class="body" style="width: 75%; float:right">
-                        <h1>@Model.newGame.Name</h1>
-                        <h2>@Model.newGame.ReleaseDate</h2>
-                        <h2>@Model.newGame.Publisher</h2>
-                        <p><b>Genre: </b>@Model.newGame.Genre</p>
-                        <p><b>Platform: </b>@Model.newGame.Platform</p>
-                        <p>@Model.newGame.Summary</p>
-                    </div>
-                </div>
-            </td>
-        </tr>
-    </table>
-}

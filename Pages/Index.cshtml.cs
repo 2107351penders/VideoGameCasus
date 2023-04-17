@@ -71,7 +71,7 @@ namespace VideoGameCasus.Pages
                         where gameList.User == User
                         select gameList).First();
             
-			return RedirectToPage("/AddGame", new { gameListId = gameList.Id, ApiSyncDone = false });
+			return RedirectToPage("/AddGame", new { gameListId = gameList.Id });
 		}
 	}
 }

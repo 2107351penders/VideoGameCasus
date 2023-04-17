@@ -80,11 +80,6 @@ namespace VideoGameCasus.Migrations
                 columns: new[] { "Id", "UserId" },
                 values: new object[] { -1, -1 });
 
-            migrationBuilder.InsertData(
-                table: "Games",
-                columns: new[] { "Id", "Cover", "Finished", "GameListId", "Genre", "Name", "Platform", "Publisher", "ReleaseDate", "Summary" },
-                values: new object[] { -1, "https://images.igdb.com/igdb/image/upload/t_cover_big/co1txv.png", false, -1, "Fake", "Seed Game", "None", "Nobody", "Never", "Example game from the database seed" });
-
             migrationBuilder.CreateIndex(
                 name: "IX_gameLists_UserId",
                 table: "gameLists",

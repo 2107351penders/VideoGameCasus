@@ -10,7 +10,7 @@ using VideoGameCasus.Data;
 namespace VideoGameCasus.Migrations
 {
     [DbContext(typeof(CasusDbContext))]
-    [Migration("20230409210450_Initial")]
+    [Migration("20230417152608_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -64,21 +64,6 @@ namespace VideoGameCasus.Migrations
                     b.HasIndex("GameListId");
 
                     b.ToTable("Games");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = -1,
-                            Cover = "https://images.igdb.com/igdb/image/upload/t_cover_big/co1txv.png",
-                            Finished = false,
-                            GameListId = -1,
-                            Genre = "Fake",
-                            Name = "Seed Game",
-                            Platform = "None",
-                            Publisher = "Nobody",
-                            ReleaseDate = "Never",
-                            Summary = "Example game from the database seed"
-                        });
                 });
 
             modelBuilder.Entity("VideoGameCasus.Models.GameList", b =>
